@@ -1,5 +1,5 @@
-last_model.pt
 best_model_yolov8m.pt
 /.venv
 .env
 .gitignore
+dataset.zip

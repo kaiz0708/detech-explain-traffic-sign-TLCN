@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 import openai
 from openai import OpenAI
 import cv2
-import matplotlib.pyplot as plt
 import os
 from ultralytics import YOLO
 
