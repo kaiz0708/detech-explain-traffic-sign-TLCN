@@ -1,0 +1,24 @@
+# @format
+
+path: D:\TLCN_1\dataset
+train: D:\TLCN_1\dataset\train
+val: D:\TLCN_1\dataset\val
+test: D:\TLCN_1\dataset\test
+nc: 16
+names:
+   0: no entry
+   1: unused
+   2: no stop or parking
+   3: no parking
+   4: no vehicles
+   5: vehicle no turn right
+   6: vehicle no turn left
+   7: pedestrians
+   8: keep right
+   9: keep left
+   10: unused
+   11: no turn left
+   12: no turn right
+   13: unused
+   14: children crossing
+   15: cross with priority road

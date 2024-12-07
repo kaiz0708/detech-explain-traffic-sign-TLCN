@@ -1,0 +1,481 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Image and Prompt Upload</title>
+      <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+         }
+
+         h1 {
+            text-align: center;
+            color: #333;
+         }
+
+         form {
+            display: flex;
+            flex-direction: column;
+         }
+
+         label {
+            margin-bottom: 10px;
+            font-weight: bold;
+         }
+
+         input[type="text"],
+         textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+         }
+
+         textarea {
+            height: 150px;
+         }
+
+         .dropzone {
+            border: 2px dashed #ccc;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+
+         .dropzone.dragover {
+            border-color: #0066cc;
+         }
+
+         .dropzone img {
+            display: block;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+         }
+
+         button {
+            padding: 10px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: 100%;
+         }
+
+         .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+         }
+
+         button:hover {
+            background-color: #005bb5;
+         }
+
+         #clearButton {
+            background-color: #ff6666;
+         }
+
+         #clearButton:hover {
+            background-color: #e60000;
+         }
+
+         #result {
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ffe9;
+            border: 1px solid #b3ffb3;
+            border-radius: 5px;
+            word-wrap: break-word;
+         }
+
+         #result textarea {
+            width: 100%;
+            max-width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            overflow-wrap: break-word;
+         }
+
+         .buttons {
+            display: flex;
+            justify-content: space-between;
+         }
+
+         /* Container for the entire results section */
+         .results_generate {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+         }
+
+         /* Label style */
+         .results_label {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+            text-align: left;
+            margin-bottom: 20px;
+            display: block;
+         }
+
+         .results_grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+         }
+
+         .card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 60px;
+         }
+
+         .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+         }
+
+         .sign_name {
+            font-size: 16px;
+            margin: 0;
+            line-height: 1;
+         }
+
+         .generate-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background: #2575fc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            min-width: 120px;
+            height: 20px;
+         }
+
+         .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+         }
+
+         .generate-button.loading {
+            color: transparent;
+            background: #2575fc;
+            cursor: not-allowed;
+            opacity: 0.8;
+         }
+
+         .generate-button.loading::after {
+            content: "";
+            width: 16px;
+            height: 16px;
+            border: 3px solid transparent;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+         }
+
+         @keyframes spin {
+            from {
+               transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+               transform: translate(-50%, -50%) rotate(360deg);
+            }
+         }
+         .no-signs {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+         }
+
+         .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+         }
+
+         .container-item {
+            width: 500px;
+         }
+
+         .gpt-response {
+            font-family: "Arial", sans-serif;
+            white-space: pre-wrap;
+            font-size: 14px;
+            color: #333;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+
+         .gpt-response:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+         }
+
+         .gpt-response div p {
+            margin: 0;
+            text-align: justify;
+         }
+
+         .gpt-response div {
+            margin-bottom: 8px;
+            font-size: 14px;
+         }
+
+         .gpt-response strong {
+            color: #2c3e50;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Image and Prompt Upload</h1>
+
+      <div class="container">
+         <div class="container-item">
+            <form action="/" method="POST" enctype="multipart/form-data" id="uploadForm">
+               <label for="image">Upload Image or Video (Drag & Drop or Select File):</label>
+               <div class="dropzone" id="dropzone" required>
+                  {% if dataResponse and dataResponse.processed_image %}
+                  <img src="data:image/jpeg;base64,{{ dataResponse.processed_image }}" alt="Processed Image" style="width: 100%; height: auto" />
+                  {% elif dataResponse and dataResponse.processed_video %}
+                  <video controls style="width: 100%; height: auto">
+                     <source src="{{ dataResponse.processed_video }}" type="video/mp4" />
+                     Your browser does not support the video tag.
+                  </video>
+                  {% else %}
+                  <div style="padding: 20px">Drag & Drop Image or Video Here</div>
+                  {% endif %}
+               </div>
+               <input type="file" name="file" accept="image/*,video/*" style="display: none" id="fileInput" />
+
+               {% if dataResponse and dataResponse.list_traffic_sign_detech %}
+               <div class="detected-classes">
+                  <h3>Detected Traffic Signs:</h3>
+                  <ul>
+                     {% for sign in dataResponse.list_traffic_sign_detech %}
+                     <li>{{ sign }}</li>
+                     {% endfor %}
+                  </ul>
+               </div>
+               {% endif %}
+
+               <div class="buttons">
+                  <button type="submit">Submit</button>
+                  <button type="button" id="clearButton">Clear</button>
+               </div>
+            </form>
+
+            <div class="results_generate">
+               <label for="image" class="results_label">Traffic Signs Detected:</label>
+               {% if dataResponse and dataResponse.list_traffic_sign_detech %}
+               <div class="results_grid">
+                  {% for sign in dataResponse.list_traffic_sign_detech %}
+                  <div class="card_parent">
+                     <div class="card">
+                        <div class="sign_name">{{ sign }}</div>
+                        <div class="generate-button-parent">
+                           <div class="generate-button" onclick="generateResponse(this, '{{ sign }}')">See more</div>
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </div>
+               {% else %}
+               <p class="no-signs">No traffic signs detected.</p>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+
+      <script>
+         function generateResponse(button, sign) {
+            button.classList.add("loading");
+            fetch("/generate_response", {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify({ sign: sign }),
+            })
+               .then((response) => response.json())
+               .then((data) => {
+                  const cardParent = button.closest(".card_parent");
+
+                  const resultDiv = document.createElement("div");
+                  resultDiv.classList.add("gpt-response");
+                  resultDiv.innerHTML = data.response;
+
+                  const existingResult = cardParent.querySelector(".gpt-response");
+                  if (existingResult) {
+                     existingResult.remove();
+                  }
+
+                  cardParent.appendChild(resultDiv);
+
+                  const text = resultDiv.innerText;
+                  resultDiv.innerHTML = "";
+                  let index = 0;
+
+                  function typeEffect() {
+                     if (index < text.length) {
+                        resultDiv.innerHTML += text.charAt(index);
+                        index++;
+                        setTimeout(typeEffect, 20);
+                     }
+                  }
+                  typeEffect();
+               })
+               .catch((error) => {
+                  console.error("Error:", error);
+               })
+               .finally(() => {
+                  button.classList.remove("loading");
+               });
+         }
+         const dropzone = document.getElementById("dropzone");
+         const fileInput = document.getElementById("fileInput");
+
+         dropzone.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            dropzone.classList.add("dragover");
+         });
+
+         dropzone.addEventListener("dragleave", function () {
+            dropzone.classList.remove("dragover");
+         });
+
+         dropzone.addEventListener("drop", function (e) {
+            e.preventDefault();
+            dropzone.classList.remove("dragover");
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+               displayMedia(files[0]);
+               fileInput.files = files;
+            }
+         });
+
+         function displayMedia(file) {
+            if (file.type.startsWith("image/")) {
+               const reader = new FileReader();
+               reader.onload = function (e) {
+                  dropzone.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: contain;">`;
+               };
+               reader.readAsDataURL(file);
+            } else if (file.type.startsWith("video/")) {
+               const reader = new FileReader();
+               reader.onload = function (e) {
+                  dropzone.innerHTML = `
+                <video controls style="width: 100%; height: 100%; object-fit: contain;">
+                    <source src="${e.target.result}" type="${file.type}">
+                    Your browser does not support the video tag.
+                </video>
+            `;
+               };
+               reader.readAsDataURL(file);
+            } else {
+               alert("Please upload a valid image or video file.");
+            }
+         }
+
+         dropzone.addEventListener("click", function () {
+            fileInput.click();
+         });
+
+         fileInput.addEventListener("change", function (event) {
+            displayMedia(fileInput.files[0]);
+         });
+
+         document.getElementById("clearButton").addEventListener("click", async () => {
+            if (confirm("Are you sure you want to clear all uploaded images?")) {
+               try {
+                  const response = await fetch("/clear", {
+                     method: "DELETE",
+                     headers: {
+                        "Content-Type": "application/json",
+                     },
+                  });
+
+                  if (response.ok) {
+                     document.getElementById("uploadForm").reset();
+
+                     dropzone.innerHTML = `<div style="padding: 20px">Drag & Drop Image Here</div>`;
+
+                     const resultDiv = document.getElementById("result");
+                     if (resultDiv) {
+                        resultDiv.remove();
+                     }
+                     const allLabels = document.querySelectorAll(".detected-classes ul");
+                     const allCards = document.querySelectorAll(".card_parent");
+                     allCards.forEach((card) => {
+                        card.innerHTML = "";
+                     });
+                     allLabels.forEach((label) => {
+                        label.innerHTML = "";
+                     });
+                  } else {
+                     alert("Failed to clear images. Please try again.");
+                  }
+               } catch (error) {
+                  alert("An error occurred while clearing images.");
+               }
+            }
+         });
+      </script>
+   </body>
+</html>
