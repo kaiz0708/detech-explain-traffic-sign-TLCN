@@ -1,42 +1,28 @@
-<h1>🚦 Traffic Sign Detection and Explanation</h1>
+🚦 Traffic Sign Detection and Explanation
 
-<p>
-Toàn bộ source code của chương trình được đăng trên GitHub: <br>
-<a href="https://github.com/kaiz0708/detech-explain-traffic-sign-TLCN" target="_blank">
-  <strong>👉 Xem Repository tại đây 👈</strong>
-</a>
-</p>
+Toàn bộ source code của chương trình được đăng trên GitHub: https://github.com/kaiz0708/detech-explain-traffic-sign-TLCN
 
-<h2>📥 Cài đặt và Chạy Demo</h2>
-<p>Để cài đặt chương trình, sử dụng lệnh sau hoặc tải code từ repository:</p>
+📥 Cài đặt và Chạy Demo
+Để cài đặt chương trình, sử dụng lệnh sau hoặc tải code từ repository: git clone https://github.com/kaiz0708/detech-explain-traffic-sign-TLCN.git
 
-<pre>
-git clone https://github.com/kaiz0708/detech-explain-traffic-sign-TLCN.git
-</pre>
+📦 Yêu cầu Thư Viện
+Để chạy chương trình, cài đặt các thư viện Python sau:
+Flask: Tạo server và giao diện web.
+dotenv và os: Quản lý biến môi trường.
+openai: Tương tác với API OpenAI.
+cv2 và numpy: Xử lý ảnh.
+ultralytics: Triển khai YOLO (object detection).
+torch: Thư viện học sâu.
+pandas và matplotlib: Phân tích và trực quan hóa dữ liệu.
+zipfile: Làm việc với file nén.
 
-<h2>📦 Yêu cầu Thư Viện</h2>
-<p>Để chạy chương trình, cài đặt các thư viện Python sau:</p>
-<ul>
-  <li><strong>Flask</strong>: Tạo server và giao diện web.</li>
-  <li><strong>dotenv</strong> và <strong>os</strong>: Quản lý biến môi trường.</li>
-  <li><strong>openai</strong>: Tương tác với API OpenAI.</li>
-  <li><strong>cv2</strong> và <strong>numpy</strong>: Xử lý ảnh.</li>
-  <li><strong>ultralytics</strong>: Triển khai YOLO (object detection).</li>
-  <li><strong>torch</strong>: Thư viện học sâu.</li>
-  <li><strong>pandas</strong> và <strong>matplotlib</strong>: Phân tích và trực quan hóa dữ liệu.</li>
-  <li><strong>zipfile</strong>: Làm việc với file nén.</li>
-</ul>
+📂 Tài Nguyên Bổ Sung
+Vui lòng tải các file dataset và mô hình và lấy API_KEY của OPEN AI tại đường link sau:
 
-<h2>📂 Tài Nguyên Bổ Sung</h2>
-<p>Vui lòng tải các file dataset và mô hình từ đường link sau (do kích thước quá lớn và bảo mật API_KEY):</p>
-<p>
-<a href="https://drive.google.com/drive/folders/1AFkcHa_9TF2WJTkkY7ZwFNmDjO70BirI?usp=sharing" target="_blank">
-  👉 Tải dữ liệu và mô hình tại đây 👈
-</a>
-</p>
+https://drive.google.com/drive/folders/1AFkcHa_9TF2WJTkkY7ZwFNmDjO70BirI?usp=sharing
 
-<h2>🛠️ Cấu Trúc Source Code</h2>
-<pre>
+🛠️ Cấu Trúc Source Code
+
 detech-explain-traffic-sign-TLCN/
 │
 ├── app.py                  # File chính để chạy server Flask
@@ -48,15 +34,12 @@ detech-explain-traffic-sign-TLCN/
 ├── templates/              # Thư mục chứa giao diện HTML
 ├── .env                    # File môi trường (chứa API_KEY)
 └── dataset.zip             # Dữ liệu huấn luyện
-</pre>
 
-<h2>🚀 Chạy Chương Trình</h2>
-<p>Sau khi cài đặt đầy đủ, chạy lệnh sau để khởi động server:</p>
 
-<pre>
-python app.py
-</pre>
+🚀 Chạy Chương Trình
+Sau khi cài đặt đầy đủ, chạy lệnh sau để khởi động server: python app.py
 
-<p>Mở trình duyệt và truy cập vào: <strong>http://127.0.0.1:5000/</strong></p>
 
-<p><strong>🎉 Chúc bạn thành công!</strong></p>
+Mở trình duyệt và truy cập vào: http://127.0.0.1:5000/
+
+🎉 Chúc bạn thành công!
