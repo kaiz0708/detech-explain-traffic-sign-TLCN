@@ -1,7 +1,5 @@
 import cv2
 import numpy as np
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
 
 def resize_and_pad(image, target_image_size=(640, 480), target_canvas_size=(640, 640)):
     h, w, _ = image.shape
