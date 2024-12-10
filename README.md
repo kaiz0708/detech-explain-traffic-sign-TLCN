@@ -14,7 +14,7 @@ https://github.com/kaiz0708/detech-explain-traffic-sign-TLCN.git
 
 📂 Tài Nguyên Bổ Sung
 
-Tải các file dataset và mô hình và lấy API_KEY của OPEN AI tại đường link sau: https://drive.google.com/drive/folders/1AFkcHa_9TF2WJTkkY7ZwFNmDjO70BirI?usp=sharing
+Tải các file dataset và mô hình (kết quả của mô hình) và lấy API_KEY của OPEN AI tại đường link sau: https://drive.google.com/drive/folders/1AFkcHa_9TF2WJTkkY7ZwFNmDjO70BirI?usp=sharing
 
 🚀 Chạy Chương Trình
 
